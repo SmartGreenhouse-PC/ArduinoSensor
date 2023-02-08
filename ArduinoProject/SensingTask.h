@@ -27,8 +27,9 @@ public:
      * @param soilMoistureSensor the sensor that registered the soil moisture.
      * @param temp the DHT sensor that registered the humidity and the temperature.
      * @param sender the sender to send the data to the ESP.
-    */
-    SensingTask(Brightness *photoresistor, SoilMoistureSensor *soilMoistureSensor, Temperature *temp, Humidity *hum, Sender *sender);
+     * @param greenhouseId greenhouse identification name.
+     */
+    SensingTask(Brightness *photoresistor, SoilMoistureSensor *soilMoistureSensor, Temperature *temp, Humidity *hum, Sender *sender, String greenhouseId);
     /**
      * Initialize the task.
      * @param period the period of the task to be evaluated by the Scheduler.
@@ -54,6 +55,8 @@ private:
     float humidityValue;
     float brightnessValue;
     float soilMoistureValue;
+    String greenhouseId;
+    void sendMessage(String parameter, String value);
 
 };
 

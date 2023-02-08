@@ -21,22 +21,23 @@ class Esp8266: public Connection {
     WiFiClient espClient;
     PubSubClient client;
     public:
-
         /**
          * Constructor of Esp8266 object.
          * @param ssidName The SSID of the WiFi network.
          * @param pwd The password of the WiFi network.
          * @param mqttServer The address of the MQTT broker.
          * @param msgARD A pointer to a MsgServiceArduino object.
+         * @param greenhouseId Greenhouse identification.
          */
-        Esp8266(char *ssidName, char *pwd, char *mqttServer, MsgServiceArduino *msgARD);
+        Esp8266(char *ssidName, char *pwd, char *mqttServer, MsgServiceArduino *msgARD, String greenhouseId);
         void connecting();
         void sendData(char* topic, String msg);
         void processIncomingMessages();
         bool isConnected(); 
         MsgServiceArduino *msgARD;
     private:
-        void callback(char* topic, byte* payload, unsigned int length);
+        String greenhouseId;
+        void callback(char *topic, byte *payload, unsigned int length);
         void reconnect();
 };
 

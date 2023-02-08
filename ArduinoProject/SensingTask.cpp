@@ -3,7 +3,7 @@
 /**
  * Implementation of the class SensingTask.
 */
-SensingTask::SensingTask(Brightness *photoresistor, SoilMoistureSensor *soilMoistureSensor, Temperature *temp, Humidity *hum, Sender *sender)
+SensingTask::SensingTask(Brightness *photoresistor, SoilMoistureSensor *soilMoistureSensor, Temperature *temp, Humidity *hum, Sender *sender, String greenhouseId)
 {
     this->photoresistor = photoresistor;
     this->soilMoistureSensor = soilMoistureSensor;
@@ -17,6 +17,8 @@ SensingTask::SensingTask(Brightness *photoresistor, SoilMoistureSensor *soilMois
     this->soilMoistureValue = 0.0;
 
     this->sender = sender;
+
+    this->greenhouseId = greenhouseId;
 }
 
 
@@ -37,12 +39,21 @@ bool SensingTask::isActive()
 
 void SensingTask::tick()
 {
+
     temperatureValue = this->temp->getTemperature();
     humidityValue = this->hum->getHumidity();
     brightnessValue = this->photoresistor->getBrightness();
     soilMoistureValue = this->soilMoistureSensor->getValue();
 
-    String msg ="{'Temp': " + String(temperatureValue)  + ",'Hum': " + String(humidityValue)  + ",'Bright': " + String(brightnessValue) + ",'Soil': " + String(soilMoistureValue)+ "}";
+    this->sendMessage("Temp", String(temperatureValue));
+    this->sendMessage("Hum", String(humidityValue));
+    this->sendMessage("Bright", String(brightnessValue));
+    this->sendMessage("Soil", String(soilMoistureValue));
+}
+
+void SensingTask::sendMessage(String parameter, String value){
+    String msg = "{'id': '" + this->greenhouseId + "','" + parameter + "': " + value+ "}";
     sender->notifyMsg(msg);
     msg = "";
+    delay(1000);
 }

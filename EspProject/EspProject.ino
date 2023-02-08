@@ -14,7 +14,7 @@
 /* wifi network name */
 #define SSIDNAME "wifi_network_name"
 /* WPA2 PSK password */
-#define PWD "password"
+#define PWD "wifi_network_password"
 /* MQTT server */
 #define MQTT_SERVER "broker.mqtt-dashboard.com"
 
@@ -27,6 +27,8 @@
 
 #define FREQ1 5000
 #define FREQ2 20
+
+#define GREENHOUSE_ID "greenhouse1"
 
 MsgServiceArduino *msgARD;
 Connection *conn;
@@ -45,7 +47,7 @@ void setup()
     msgARD = new MsgServiceArduino(RX, TX);
     msgARD->init();
 
-    conn = new Esp8266(SSIDNAME, PWD, MQTT_SERVER, msgARD);
+    conn = new Esp8266(SSIDNAME, PWD, MQTT_SERVER, msgARD, GREENHOUSE_ID);
     conn->connecting();
 
     state = RECEIVE;

@@ -36,6 +36,7 @@
 #define PIN_TX A4
 
 #define SCHEDULE_TIME 20UL
+#define GREENHOUSE_ID "greenhouse1"
 
 Ventilation *ventilation;
 Brightness *photoresistor;
@@ -82,8 +83,8 @@ void setup() {
   msgServiceEsp->init();
   sender = new Sender(msgServiceEsp);
 
-  sensingTask = new SensingTask(photoresistor, soilMoistureSensor, temp, hum, sender);
-  sensingTask->init(1000UL * 60UL * 15UL);
+  sensingTask = new SensingTask(photoresistor, soilMoistureSensor, temp, hum, sender, GREENHOUSE_ID);
+  sensingTask->init(1000UL * 10UL);//60UL * 3UL
   listenerTask = new ListenerTask(irrigation, ventilation, tempLamp, lamp, msgServiceEsp);
   listenerTask->init(1000UL * 3UL);
 

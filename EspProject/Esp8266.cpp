@@ -3,7 +3,7 @@
 /**
  * Implementation of the Esp8266 class. 
 */
-Esp8266::Esp8266(char *ssidName, char *pwd, char *mqttServer, MsgServiceArduino *msgARD):client(espClient)
+Esp8266::Esp8266(char *ssidName, char *pwd, char *mqttServer, MsgServiceArduino *msgARD, String greenhouseId):client(espClient)
 {
     this->ssidName = ssidName;
     this->pwd = pwd;
@@ -15,8 +15,13 @@ Esp8266::Esp8266(char *ssidName, char *pwd, char *mqttServer, MsgServiceArduino 
 
 void Esp8266::callback(char* topic, byte* payload, unsigned int length){
   String message = String((char*)payload);
-  this->msgARD->sendMsg(String(topic) + ":" + message.substring(0, length));
-  message = "";
+  //message = "greenhouseID,action"
+  String id =  String(strtok((char*)payload, ","));
+  String action = String((char *)strtok(NULL, ","));
+  if (id == this->greenhouseId)
+  {
+    this->msgARD->sendMsg(String(topic) + ":" + action);
+  }
 }
 
 void Esp8266::connecting()

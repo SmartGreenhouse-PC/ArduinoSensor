@@ -84,7 +84,7 @@ void setup() {
   sender = new Sender(msgServiceEsp);
 
   sensingTask = new SensingTask(photoresistor, soilMoistureSensor, temp, hum, sender, GREENHOUSE_ID);
-  sensingTask->init(1000UL * 10UL);//60UL * 3UL
+  sensingTask->init(1000UL * 3UL);//60UL * 3UL
   listenerTask = new ListenerTask(irrigation, ventilation, tempLamp, lamp, msgServiceEsp);
   listenerTask->init(1000UL * 3UL);
 

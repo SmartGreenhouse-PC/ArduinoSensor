@@ -14,7 +14,7 @@
 /* wifi network name */
 #define SSIDNAME "wifi_network_name"
 /* WPA2 PSK password */
-#define PWD "wifi_network_password"
+#define PWD "wifi_network_pwd"
 /* MQTT server */
 #define MQTT_SERVER "broker.mqtt-dashboard.com"
 

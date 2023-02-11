@@ -8,19 +8,20 @@ Esp8266::Esp8266(char *ssidName, char *pwd, char *mqttServer, MsgServiceArduino 
     this->ssidName = ssidName;
     this->pwd = pwd;
     this->msgARD = msgARD;
+    this->greenhouseId = greenhouseId;
 
     client.setServer(mqttServer, 1883);
     client.setCallback(std::bind(&Esp8266::callback, this,  std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
 }
 
 void Esp8266::callback(char* topic, byte* payload, unsigned int length){
-  String message = String((char*)payload);
   //message = "greenhouseID,action"
   String id =  String(strtok((char*)payload, ","));
   String action = String((char *)strtok(NULL, ","));
+  
   if (id == this->greenhouseId)
   {
-    this->msgARD->sendMsg(String(topic) + ":" + action);
+    this->msgARD->sendMsg(String(topic) + ":" + action.substring(0, length - (id.length() + 1)));
   }
 }
 

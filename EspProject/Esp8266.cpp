@@ -3,11 +3,12 @@
 /**
  * Implementation of the Esp8266 class. 
 */
-Esp8266::Esp8266(char *ssidName, char *pwd, char *mqttServer, MsgServiceArduino *msgARD, String greenhouseId):client(espClient)
+Esp8266::Esp8266(char *ssidName, char *pwd, char *mqttServer, MsgServiceArduino *msgARD, CloudParameterHolder *holder, String greenhouseId):client(espClient)
 {
     this->ssidName = ssidName;
     this->pwd = pwd;
     this->msgARD = msgARD;
+    this->holder = holder;
     this->greenhouseId = greenhouseId;
 
     client.setServer(mqttServer, 1883);
@@ -22,6 +23,7 @@ void Esp8266::callback(char* topic, byte* payload, unsigned int length){
   if (id == this->greenhouseId)
   {
     this->msgARD->sendMsg(String(topic) + ":" + action.substring(0, length - (id.length() + 1)));
+
   }
 }
 
@@ -74,7 +76,34 @@ void Esp8266::sendData(char* topic, String msg){
     if (WiFi.status() == WL_CONNECTED)
     {
        client.publish(topic, msg.c_str());
+       if(String(topic).equals("dataSG")){
+         this->manageCloudParameterUpdate(msg);
+       }
     }
+}
+
+void Esp8266::manageCloudParameterUpdate(String msg){
+  DynamicJsonDocument doc(1024);
+  deserializeJson(doc, msg.c_str());
+  String param = doc["param"];
+  float value = doc["value"];
+
+  if(param.equals("Bright"))
+  {
+    this->holder->updateBrightness(value);
+  }
+  else if(param.equals("Temp"))
+  {
+    this->holder->updateTemperature(value);
+  }
+  else if(param.equals("Soil"))
+  {
+    this->holder->updateSoilMoisture(value);
+  }
+  else if(param.equals("Hum"))
+  {
+    this->holder->updateHumidity(value);
+  }
 }
 
 bool Esp8266::isConnected()

@@ -52,7 +52,7 @@ void SensingTask::tick()
 }
 
 void SensingTask::sendMessage(String parameter, String value){
-    String msg = "{'id': '" + this->greenhouseId + "','" + parameter + "': " + value+ "}";
+    String msg = "{'id': '" + this->greenhouseId + "','param': '" + parameter + "','value': " + value+ "}";
     sender->notifyMsg(msg);
     msg = "";
     delay(1000);

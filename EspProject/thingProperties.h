@@ -9,24 +9,36 @@ const char SSID[]               = SECRET_SSID;    // Network SSID (name)
 const char PASS[]               = SECRET_OPTIONAL_PASS;    // Network password (use for WPA, or use as key for WEP)
 const char DEVICE_KEY[]  = SECRET_DEVICE_KEY;    // Secret device password
 
-void onBrightnessChange();
-void onHumidityChange();
-void onSoilMoistureChange();
+void onHumiditySystemChange();
 void onTemperatureChange();
+void onLuminositySystemChange();
+void onIrrigationSystemChange();
+void onTemperatureSystemChange();
+void onVentilationSystemChange();
 
+String humiditySystem;
 float brightness;
 float humidity;
 float soilMoisture;
 float temperature;
+int luminositySystem;
+bool irrigationSystem;
+bool temperatureSystem;
+bool ventilationSystem;
 
 void initProperties(){
 
   ArduinoCloud.setBoardId(DEVICE_LOGIN_NAME);
   ArduinoCloud.setSecretDeviceKey(DEVICE_KEY);
-  ArduinoCloud.addProperty(brightness, READWRITE, ON_CHANGE, onBrightnessChange);
-  ArduinoCloud.addProperty(humidity, READWRITE, ON_CHANGE, onHumidityChange);
-  ArduinoCloud.addProperty(soilMoisture, READWRITE, ON_CHANGE, onSoilMoistureChange);
+  ArduinoCloud.addProperty(humiditySystem, READWRITE, ON_CHANGE, onHumiditySystemChange);
+  ArduinoCloud.addProperty(brightness, READ, ON_CHANGE, NULL);
+  ArduinoCloud.addProperty(humidity, READ, ON_CHANGE, NULL);
+  ArduinoCloud.addProperty(soilMoisture, READ, ON_CHANGE, NULL);
   ArduinoCloud.addProperty(temperature, READWRITE, ON_CHANGE, onTemperatureChange);
+  ArduinoCloud.addProperty(luminositySystem, READWRITE, ON_CHANGE, onLuminositySystemChange);
+  ArduinoCloud.addProperty(irrigationSystem, READWRITE, ON_CHANGE, onIrrigationSystemChange);
+  ArduinoCloud.addProperty(temperatureSystem, READWRITE, ON_CHANGE, onTemperatureSystemChange);
+  ArduinoCloud.addProperty(ventilationSystem, READWRITE, ON_CHANGE, onVentilationSystemChange);
 
 }
 

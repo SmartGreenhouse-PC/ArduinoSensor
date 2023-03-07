@@ -1,5 +1,8 @@
 #include "CloudParameterHolder.h"
 
+/**
+ * Implementation of the class CloudParameterHolder.
+*/
 CloudParameterHolder::CloudParameterHolder(float* brightness, float* temperature, float* humidity,  float* soilMoisture)
 {
     this->brightness = brightness;

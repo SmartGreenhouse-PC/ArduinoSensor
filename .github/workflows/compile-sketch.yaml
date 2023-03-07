@@ -43,7 +43,6 @@ jobs:
               source-url: https://github.com/knolleary/pubsubclient.git
             - name: "ArduinoJson"
               source-url: https://github.com/bblanchon/ArduinoJson.git
-              version: 6.16.1
             - name: "ArduinoIoTCloud"
               source-url: https://github.com/arduino-libraries/ArduinoIoTCloud.git
             - name: "Arduino_ConnectionHandler"

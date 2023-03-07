@@ -40,7 +40,10 @@ jobs:
               source-url: 'http://arduino.esp8266.com/stable/package_esp8266com_index.json'
           libraries: |
             - name: "PubSubClient"
-              source-url: https://github.com/knolleary/pubsubclient.git   
+              source-url: https://github.com/knolleary/pubsubclient.git
+            - name: "ArduinoJson"
+              version: 6.16.1
+              source-url: https://github.com/bblanchon/ArduinoJson
   find-tag:
     needs: compile-sketch
     if:  success() && github.ref == 'refs/heads/master'

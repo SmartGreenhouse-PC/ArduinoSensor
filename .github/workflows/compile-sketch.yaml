@@ -51,6 +51,8 @@ jobs:
               source_url: https://github.com/arduino-libraries/Arduino_DebugUtils.git
             - name: "ArduinoMQTTClient"
               source-url: https://github.com/arduino-libraries/ArduinoMqttClient.git
+              version: 6.16.1
+              source-url: https://github.com/bblanchon/ArduinoJson.git
   find-tag:
     needs: compile-sketch
     if:  success() && github.ref == 'refs/heads/master'

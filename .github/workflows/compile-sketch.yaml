@@ -43,7 +43,7 @@ jobs:
               source-url: https://github.com/knolleary/pubsubclient.git
             - name: "ArduinoJson"
               version: 6.16.1
-              source-url: https://github.com/bblanchon/ArduinoJson
+              source-url: https://github.com/bblanchon/ArduinoJson.git
   find-tag:
     needs: compile-sketch
     if:  success() && github.ref == 'refs/heads/master'

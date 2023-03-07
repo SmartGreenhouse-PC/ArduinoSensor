@@ -42,11 +42,14 @@ jobs:
             - name: "PubSubClient"
               source-url: https://github.com/knolleary/pubsubclient.git
             - name: "ArduinoJson"
+              version: 6.16.1
               source-url: https://github.com/bblanchon/ArduinoJson.git
             - name: "ArduinoIoTCloud"
               source-url: https://github.com/arduino-libraries/ArduinoIoTCloud.git
             - name: "Arduino_ConnectionHandler"
               source-url: https://github.com/arduino-libraries/Arduino_ConnectionHandler.git
+            - name: "Arduino_DebugUtils"
+              source_url: https://github.com/arduino-libraries/Arduino_DebugUtils.git
   find-tag:
     needs: compile-sketch
     if:  success() && github.ref == 'refs/heads/master'

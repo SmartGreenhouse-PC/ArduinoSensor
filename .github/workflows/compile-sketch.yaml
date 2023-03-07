@@ -43,6 +43,8 @@ jobs:
               source-url: https://github.com/knolleary/pubsubclient.git
             - name: "ArduinoJson"
               source-url: https://github.com/bblanchon/ArduinoJson.git
+            - name: "ArduinoIoTCloud"
+              source-url: https://github.com/arduino-libraries/ArduinoIoTCloud.git
   find-tag:
     needs: compile-sketch
     if:  success() && github.ref == 'refs/heads/master'

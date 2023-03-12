@@ -8,7 +8,7 @@ The hardware parts that you need are:
 - Arduino UNO,
 - Two Led, one red for the thermic lamp and one white for the normal lamp,
 - Photo-resistor to record the brightness,
-- Two 220 Ohm resistor for the led and one 1k Ohm for the photo-resistor 
+- Two 220 Ohm resistor for the led and one 1k Ohm for the photo-resistor,
 - Soil Moisture sensor to record the humidity of the soil,
 - DHT11 sensor to measure the air humidity and temperature,
 - Fan blade, the related motor, L293D chip and the power supply module for the ventilation system,
